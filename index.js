@@ -1,12 +1,13 @@
+const express = require('express');
+
 require('./config');
 
-const express = require('express');
+const apiRoutes = require('./routes/apiRoutes');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello');
-})
+// Middleware
+app.use('/api', apiRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`Server up on port ${process.env.PORT}`);
