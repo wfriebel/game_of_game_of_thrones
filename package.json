@@ -1,0 +1,23 @@
+{
+  "name": "thronesss",
+  "version": "1.0.0",
+  "description": "A game of thrones fantasy league",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Will Friebel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.2.4"
+  },
+  "engines": {
+    "node": "10.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.2"
+  }
+}
