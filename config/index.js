@@ -1,5 +1,11 @@
+const path = require('path');
+
 const env = process.env.NODE_ENV || 'development';
- 
+
+// Setup environment variables
 if (env === 'development') {
-    process.env.PORT = 3000;
+    require('dotenv').config({ path: path.join(__dirname, '../.env.development')});
 }
+
+// Connect to database
+require('../database');
