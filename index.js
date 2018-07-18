@@ -1,4 +1,4 @@
-require('./config');
+require('./config')();
 
 const express = require('express');
 const passport = require('./services/passport');
@@ -29,26 +29,3 @@ app.get('/', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Server up on port ${process.env.PORT}`);
 });
-
-// const { League } = require('./models/League');
-// const { User } = require('./models/User');
-
-
-// const league = new League({ name: 'My league' });
-// league.save()
-//     .then(league => {
-//         console.log('New leage created:', league)
-//         const user = new User({
-//             name: 'Will Friebel',
-//             email: 'will.friebel@gmail.com',
-//             league: league._id
-//         })
-//         return user.save()
-//     })
-//     .then(user => {
-//         console.log('New user created', user);
-//     })
-//     .catch((e) => {
-//         console.log('Problem saving new user:', e);
-//     })
-

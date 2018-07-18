@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+module.exports = () => {
+    const database = process.env.MONGODB_URI;
+    return mongoose.connect(database, { useNewUrlParser: true })
     .then(() => {
-        console.log(`Connected to ${process.env.MONGODB_URI}`);
+        return console.log(`Connected to ${database}`);
     })
-    .catch(() => {
-        console.log('Could not connect to database');
+    .catch(e => {
+        console.log(`Could not connect to database ${database}`);
+        return Promise.reject(e);
     })
+}

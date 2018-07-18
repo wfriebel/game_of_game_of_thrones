@@ -1,7 +1,10 @@
-const leagueRoutes = require('express').Router();
+const { League } = require('../models/League');
 
-leagueRoutes.get('/', (req, res) => {
-    res.send('GET /leagues')
-});
-
-module.exports = leagueRoutes;
+module.exports = (app) => {
+    app.get('/leagues/:leagueId', (req, res) => {
+        League.findById(req.params.leagueId)
+            .then(league => {
+                res.send(league);
+            });
+    });
+};

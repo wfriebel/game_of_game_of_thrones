@@ -1,7 +1,11 @@
 const actionTypeRoutes = require('express').Router();
+const { ActionType } = require('../models/ActionType');
 
-actionTypeRoutes.get('/', (req, res) => {
-    res.send('GET /action_types')
-});
-
-module.exports = actionTypeRoutes;
+module.exports = (app) => {
+    app.get('/action_types', (req, res) => {
+        ActionType.find()
+            .then(actionTypes => {
+                res.send(actionTypes);
+            })
+    });
+}

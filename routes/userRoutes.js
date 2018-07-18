@@ -1,7 +1,12 @@
-const userRoutes = require('express').Router();
+const { User } = require('../models/User');
 
-userRoutes.get('/', (req, res) => {
-    res.send('GET /users')
-});
+// Routes for api/leagues/:leagueId/users
 
-module.exports = userRoutes;
+module.exports = (app) => {
+    app.get('/leagues/:leagueId/users', (req, res) => {
+        User.find({ league: req.params.leagueId })
+            .then(users => {
+                res.send(users);
+            })
+    });
+}
