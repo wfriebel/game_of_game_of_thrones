@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { weekValidator } = require('../schemaValidators');
+require('./Character');
+require('./User');
+require('./ActionType');
+require('./League');
 
 const actionSchema = new Schema({
     character: {
@@ -29,9 +33,21 @@ const actionSchema = new Schema({
         validate: {
             validator: weekValidator,
             message: 'Week must be an integer greater or equal to one'
-        }
+        },
+    createdAt: Date
     }
 })
+
+actionSchema.pre('save', function() {
+    this.createdAt = Date();
+});
+
+actionSchema.pre('find', function() {
+    this.populate('character');
+    this.populate('user');
+    this.populate('actionType');
+    this.populate('league');
+});
 
 const Action = mongoose.model('Action', actionSchema);
 

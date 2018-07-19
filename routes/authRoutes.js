@@ -23,7 +23,7 @@ authRoutes.get('/current_user', (req, res) => {
 
 authRoutes.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/')
+  res.redirect('/');
 })
 
 module.exports = authRoutes;

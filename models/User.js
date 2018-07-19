@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { emailValidator } = require('../schemaValidators');
 const { Schema } = mongoose;
+require('./League');
 
 const userSchema = new Schema({
     first: {
@@ -33,6 +34,10 @@ const userSchema = new Schema({
 
 userSchema.pre('save', function () {
     this.createdAt = Date();
+});
+
+userSchema.pre('find', function() {
+    this.populate('league');    
 });
 
 const User = mongoose.model('User', userSchema);

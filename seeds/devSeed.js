@@ -6,6 +6,7 @@ const { League } = require('../models/League');
 const { Character } = require('../models/Character');
 const { ActionType } = require('../models/ActionType');
 const { Action } = require('../models/Action');
+const { CharacterOwner } = require('../models/CharacterOwner');
 const actionCategories = require('../models/actionCategories');
 
 const seed = async () => {
@@ -33,12 +34,19 @@ const seed = async () => {
             await new Character({
                 name: faker.name.findName(),
                 description: faker.lorem.paragraph(),
-                imageURL: faker.image.people(),
-                owner: _.sample(users)._id
+                imageURL: faker.image.people()
             }).save();
         }
 
         const characters = await Character.find();
+
+        for(let i = 0; i < characters.length; i++) {
+            await new CharacterOwner({
+                character: characters[i]._id,
+                owner: users[i % users.length],
+                league: league._id
+            }).save();
+        };
         
         for(let i = 0; i < 20; i++) {
             await new ActionType({
@@ -51,7 +59,8 @@ const seed = async () => {
 
         for(let i = 0; i < 50; i++) {
             const character = _.sample(characters);
-            const user = await User.findById(character.owner);
+            const characterOwner = await CharacterOwner.findOne({ league: league.id, character: character.id });
+            const user = characterOwner.owner;
             await new Action({
                 character: character._id,
                 user: user._id,

@@ -10,17 +10,14 @@ const characterSchema = new Schema({
     },
     imageURL: {
         type: String,
-        // Add validation that it is a url
+
+        // TODO
         // Add default image
     },
     description: {
         type: String
-    },
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
     }
-})
+});
 
 const Character = mongoose.model('Character', characterSchema);
 
