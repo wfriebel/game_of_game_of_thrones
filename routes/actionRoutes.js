@@ -5,7 +5,7 @@ module.exports = (app) => {
     app.get('/leagues/:leagueId/actions', (req, res) => {
         Action.find({ league: req.params.leagueId })
             .then(actions => {
-                actions
+                actions.length > 0
                     ? res.send(actions)
                     : res.status(404).send();
             })
@@ -20,7 +20,7 @@ module.exports = (app) => {
                 user: req.params.userId
             })
             .then(actions => {
-                actions
+                actions.length > 0
                     ? res.send(actions)
                     : res.status(404).send();
             })
@@ -35,7 +35,7 @@ module.exports = (app) => {
             character: req.params.characterId
         })
         .then(actions => {
-            actions
+            actions.length > 0
                 ? res.send(actions)
                 : res.status(404).send();
         })

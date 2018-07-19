@@ -1,14 +1,15 @@
-const api = require('express').Router();
+const apiRoutes = require('express').Router();
 const characterRoutes = require('./characterRoutes');
 const actionRoutes = require('./actionRoutes');
 const actionTypeRoutes = require('./actionTypeRoutes');
-const authRoutes = require('./authRoutes');
 const userRoutes = require('./userRoutes');
+const { authenticate } = require('../middlewares');
 
-api.use('/auth', authRoutes);
-userRoutes(api);
-characterRoutes(api);
-actionTypeRoutes(api);
-actionRoutes(api);
+// apiRoutes.use(authenticate);
 
-module.exports = api;
+userRoutes(apiRoutes);
+characterRoutes(apiRoutes);
+actionTypeRoutes(apiRoutes);
+actionRoutes(apiRoutes);
+
+module.exports = apiRoutes;

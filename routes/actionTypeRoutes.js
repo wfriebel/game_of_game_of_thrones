@@ -5,7 +5,7 @@ module.exports = (app) => {
     app.get('/action_types', (req, res) => {
         ActionType.find()
             .then(actionTypes => {
-                actionTypes
+                actionTypes.length > 0
                     ? res.send(actionTypes)
                     : res.status(404).send();
             })

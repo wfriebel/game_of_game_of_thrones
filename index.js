@@ -1,4 +1,5 @@
-require('./config')();
+require('./config');
+require('./database');
 
 const express = require('express');
 const passport = require('./services/passport');
@@ -7,6 +8,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 
 const apiRoutes = require('./routes/apiRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -20,6 +22,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
@@ -29,3 +32,5 @@ app.get('/', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Server up on port ${process.env.PORT}`);
 });
+
+module.exports = app;

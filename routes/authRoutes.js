@@ -13,7 +13,7 @@ authRoutes.get(
   '/google/callback',
   passport.authenticate('google'),
   (req, res) => {
-    res.redirect('/api/auth/current_user');
+    res.redirect('/auth/current_user');
   }
 );
 

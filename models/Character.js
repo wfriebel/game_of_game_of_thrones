@@ -5,7 +5,6 @@ const characterSchema = new Schema({
     name: {
         type: String,
         required: true,
-        lowercase: true,
         trim: true
     },
     imageURL: {

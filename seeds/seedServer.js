@@ -7,7 +7,6 @@ switch(process.env.NODE_ENV) {
     case 'development':
         seed = require('../seeds/devSeed');
         serverName = 'development';
-        // TODO Add case for test server
     default:
         seed = require('../seeds/devSeed');
         serverName = 'development';
@@ -16,7 +15,7 @@ switch(process.env.NODE_ENV) {
 // Connect to database and set up environment variables
 config()
     .then(() => {
-        console.log(`Seeding data into ${serverName} server...`)
+        console.log(`Seeding data into ${serverName} database...`)
         return seed(); // Seed data
     })
     .then(() => {

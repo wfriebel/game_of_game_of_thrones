@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const { emailValidator } = require('../schemaValidators');
 const { Schema } = mongoose;
 require('./League');
@@ -7,13 +8,11 @@ const userSchema = new Schema({
     first: {
         type: String,
         required: true,
-        lowercase: true,
         trim: true
     },
     last: {
         type: String,
         required: true,
-        lowercase: true,
         trim: true
     },
     email: {
@@ -22,18 +21,20 @@ const userSchema = new Schema({
             validator: emailValidator,
             message: 'email must be a valid email'
         }
-        // TODO get user image
     },
     googleId: String,
     league: { 
         type: Schema.Types.ObjectId,
         ref: 'League'
-    }, 
+    },
+    imageURL: String,
     createdAt: Date
 })
 
 userSchema.pre('save', function () {
     this.createdAt = Date();
+    this.first = _.capitalize(this.first);
+    this.last = _.capitalize(this.last);
 });
 
 userSchema.pre('find', function() {

@@ -5,7 +5,7 @@ module.exports = (app) => {
     app.get('/characters', (req, res) => {
         Character.find()
             .then(characters => {
-                characters
+                characters.length > 0
                     ? res.send(characters)
                     : res.status(404).send();
             })
@@ -31,9 +31,9 @@ module.exports = (app) => {
            owner: req.params.userId,
            league: req.params.leagueId
        })
-       .then(result => {
-            result
-                ? res.send(result.map(item => item.character))
+       .then(characterOwners => {
+            characterOwners.length > 0
+                ? res.send(characterOwners.map(item => item.character))
                 : res.status(404).send();
        })
        .catch(e => {
