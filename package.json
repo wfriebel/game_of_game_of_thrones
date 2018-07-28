@@ -5,21 +5,35 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev:start": "NODE_ENV=development nodemon index.js",
+    "dev:server": "NODE_ENV=development nodemon server/index.js",
     "dev:seed": "NODE_ENV=development node seeds/seedServer.js",
     "dev:clearDB": "NODE_ENV=development node seeds/clearDatabase.js",
-    "test": "jest"
+    "client": "cd client && yarn start",
+    "dev:start": "concurrently \"yarn run dev:server\" \"yarn run client\"",
+    "test": "jest",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Will Friebel",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^3.6.0",
     "connect-mongo": "^2.0.1",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
+    "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "mongoose": "^5.2.4",
     "passport": "^0.4.0",
-    "passport-google-oauth20": "^1.0.0",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-plus-token": "^2.1.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "react-google-login": "^3.2.1",
     "validator": "^10.4.0"
   },
   "engines": {
@@ -29,6 +43,7 @@
     "dotenv": "^6.0.0",
     "faker": "^4.1.0",
     "jest": "^23.4.1",
+    "morgan": "^1.9.0",
     "nodemon": "^1.18.2",
     "supertest": "^3.1.0"
   }

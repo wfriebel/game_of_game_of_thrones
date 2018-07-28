@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../index');
 const mongoose = require('mongoose');
-
+const { clearDatabase } = require('../seeds/populateData');
 const {
     populateDatabase,
     league,
@@ -40,6 +40,10 @@ describe('GET /api/characters/:characterId', () => {
                 expect(res.body._id).toBe(String(character._id));
             });
     });
+    // test('It should return 404 if user not present', () => {
+    //     character = characters[0]
+    //     return request(app).get(`/api/characters/${character._id}`)
+    // })
 })
 
 describe('GET /api/leagues/:leagueId/users/:userId/characters', () => {
