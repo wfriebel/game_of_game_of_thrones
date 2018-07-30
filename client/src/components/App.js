@@ -12,13 +12,3 @@ const App = () => (
 )
 
 export default App
-
-
-// console.log(store.getState())
-// const user = {
-//     name: 'will',
-//     description: 'I am a person'
-// }
-// const token = '124rhowe90urd'
-// store.dispatch(login(user, token))
-console.log(store.getState())

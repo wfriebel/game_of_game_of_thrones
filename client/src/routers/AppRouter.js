@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Switch } from 'react-router-dom'
 import TeamPage from '../components/TeamPage'
 import LoginPage from '../components/LoginPage'
 import CharacterPage from '../components/CharacterPage'
@@ -15,10 +15,10 @@ const AppRouter = () => (
             <Switch>
                 <PublicRoute exact path='/' component={LoginPage} />
                 <PrivateRoute path='/about' component={AboutPage} />
-                <Route path='/teams' component={TeamPage} />
-                <Route path='/characters' component={CharacterPage} />
-                <Route path='/stats' component={StatsPage} />
-                <Route path='/update' component={UpdatePage} />
+                <PrivateRoute path='/teams' component={TeamPage} />
+                <PrivateRoute path='/characters' component={CharacterPage} />
+                <PrivateRoute path='/stats' component={StatsPage} />
+                <PrivateRoute path='/update' component={UpdatePage} />
             </Switch>
         </div>
     </BrowserRouter>
@@ -26,5 +26,7 @@ const AppRouter = () => (
 
 // TODO
 // Make a 404 route
+// How to deal with multiple views on the dashboard page
+    // Should I create different routes or use different query params
 
 export default AppRouter
