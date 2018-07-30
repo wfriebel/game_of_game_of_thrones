@@ -37,7 +37,8 @@
     "validator": "^10.4.0"
   },
   "engines": {
-    "node": "10.4.0"
+    "node": "10.4.0",
+    "npm": "6.2.0"
   },
   "devDependencies": {
     "dotenv": "^6.0.0",
