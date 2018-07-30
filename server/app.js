@@ -14,10 +14,7 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 app.use(bodyParser.json());
-
-if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-  app.use(cors());
-}
+app.use(cors());
 
 app.use('/auth', authRoutes);
 app.use('/api', passport.authenticate('jwt', { session: false }), apiRoutes);
