@@ -1,5 +1,5 @@
-import { LOGIN, LOGOUT } from './authActionTypes';
-import api, { setAxiosAuthToken, removeAxiosAuthToken } from '../ApiCalls'
+import { LOGIN, LOGOUT } from './actionTypes';
+import { authRoutes } from '../api'
 
 const loginAction = (user, token) => (
     {
@@ -13,17 +13,15 @@ const logoutAction = () => ({
 })
 
 export const googleLogin = (accessToken) => async dispatch => {
-    const serverResponse = await api.post('/auth/google', { access_token: accessToken });    
+    const serverResponse = await authRoutes.post('/google', { access_token: accessToken });    
     const user = serverResponse.data.user;
     const token = serverResponse.data.token;
-    setAxiosAuthToken(token);
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
     dispatch(loginAction(user, token));
 }
 
 export const logout = () => dispatch => {
-    removeAxiosAuthToken();
     localStorage.setItem('token', '');
     localStorage.setItem('user', '');
     dispatch(logoutAction());

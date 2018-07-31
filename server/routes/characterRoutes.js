@@ -5,9 +5,7 @@ module.exports = (app) => {
     app.get('/characters', (req, res) => {
         Character.find()
             .then(characters => {
-                characters.length > 0
-                    ? res.send(characters)
-                    : res.status(404).send();
+                res.send(characters)
             })
             .catch(e => {
                 res.status(400).send({ error: e });

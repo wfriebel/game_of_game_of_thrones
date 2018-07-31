@@ -44,7 +44,7 @@ module.exports = {
     google: (req, res, next) => {
         if (req.token && req.user) {
             const user = {
-                id: req.user._id,
+                _id: req.user._id,
                 first: req.user.google.first,
                 last: req.user.google.last,
                 email: req.user.google.email,

@@ -10,6 +10,7 @@ import PrivateRoute from '../routers/PrivateRoute'
 import PublicRoute from '../routers/PublicRoute'
 
 const AppRouter = () => (
+    
     <BrowserRouter>
         <div>
             <Switch>
