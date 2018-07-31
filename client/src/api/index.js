@@ -1,18 +1,11 @@
 import axios from 'axios'
 
-const api = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL + 'api'
-  });
-
 export const authRoutes = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL + 'auth'
 })
 
-// export const setAxiosAuthToken = () => {
-//   api.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-// }
-// export const removeAxiosAuthToken = () => {
-//   api.defaults.headers.common['Authorization'] = undefined;
-// }
+const api = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL + 'api'
+  });
 
 export default api;

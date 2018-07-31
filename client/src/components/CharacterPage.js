@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import CharacterList from './CharacterList'
+import { fetchCharacters } from '../actions/charactersActions'
 
-const CharacterPage = () => (
-    <div>
-        <CharacterList />
-    </div>
-)
+class CharacterPage extends Component {
+    componentDidMount() {
+        if(!this.props.initialLoadComplete) {
+            this.props.fetchCharacters();
+        }
+     }
 
-export default CharacterPage
+    render() {
+        return (
+            <div>
+                <CharacterList />
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = (state) => ({
+    initialLoadComplete: state.characters.initialLoadComplete
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchCharacters: () => dispatch(fetchCharacters())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterPage)

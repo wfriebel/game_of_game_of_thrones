@@ -1,25 +1,26 @@
-import { SET_CHARACTERS } from './actionTypes'
-import api from '../api'
-import { store } from '../components/App'
+import { FETCH_CHARACTERS_START, FETCH_CHARACTERS_SUCCESS, FETCH_CHARACTERS_ERROR } from './actionTypes'
+import { getCharacters } from '../api/characters'
 
-const setCharactersAction = (characters) => ({
-    type: SET_CHARACTERS,
-    payload: characters
+const fetchCharactersStart = () => ({
+    type: FETCH_CHARACTERS_START
+})
+
+const fetchCharactersSuccess = (characters) => ({
+    type: FETCH_CHARACTERS_SUCCESS,
+    payload: { characters }
+})
+
+const fetchCharactersError = (error) => ({
+    type: FETCH_CHARACTERS_ERROR,
+    payload: { error }
 })
 
 export const fetchCharacters = () => async dispatch => {
     try {
-        console.log('fetching characters')
-        const response = await api({
-            method: 'get',
-            url: '/characters',
-            headers: {
-                authorization: store.getState().auth.token
-            }
-        })
-        dispatch(setCharactersAction(response.data))
+        dispatch(fetchCharactersStart())
+        const characters = await getCharacters()
+        dispatch(fetchCharactersSuccess(characters))
     } catch (error) {
-        console.log('Error setting characters:', error)
+        dispatch(fetchCharactersError(error))
     }
-    
 }
