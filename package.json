@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node server",
     "dev:server": "NODE_ENV=development nodemon server/index.js",
-    "dev:seed": "NODE_ENV=development node seeds/seedServer.js",
-    "dev:clearDB": "NODE_ENV=development node seeds/clearDatabase.js",
+    "dev:seed": "NODE_ENV=development node server/seed/index.js",
+    "dev:drop": "NODE_ENV=development node server/seed/drop.js",
     "client": "cd client && yarn start",
     "dev:start": "concurrently \"yarn run dev:server\" \"yarn run client\"",
     "test": "jest",

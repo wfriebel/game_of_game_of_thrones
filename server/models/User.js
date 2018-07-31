@@ -22,7 +22,6 @@ const userSchema = new Schema({
         email: {
             type: String,
             lowercase: true,
-            unique: true,
             validate: {
                 validator: emailValidator,
                 message: 'email must be a valid email'
@@ -47,7 +46,6 @@ const userSchema = new Schema({
         email: {
             type: String,
             lowercase: true,
-            unique: true
         },
         imageURL: String
     },
@@ -66,7 +64,6 @@ const userSchema = new Schema({
         email: {
             type: String,
             lowercase: true,
-            unique: true
         },
         imageURL: String
     },

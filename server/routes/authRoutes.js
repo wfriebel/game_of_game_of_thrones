@@ -3,32 +3,6 @@ const authRoutes = require('express').Router();
 const authControllers = require('../controllers/authControllers');
 const { validateBody, schemas } = require('../helpers/routeHelpers');
 
-// // Routes for /api/auth
-// authRoutes.get(
-//   '/google',
-//   passport.authenticate('google', {
-//     scope: ['profile', 'email']
-//   })
-// );
-
-// authRoutes.get(
-//   '/google/callback',
-//   passport.authenticate('google', { session: false }),
-//   (req, res) => {
-//     // res.redirect('/');
-//     res.send({ user: req.user });
-//   }
-// );
-
-// authRoutes.get('/current_user', (req, res) => {
-//   res.send({ user: req.user });
-// })
-
-// authRoutes.get('/logout', (req, res) => {
-//   req.logout();
-//   res.redirect('/');
-// })
-
 authRoutes.post(
   '/signup',
   validateBody(schemas.newUserSchema),

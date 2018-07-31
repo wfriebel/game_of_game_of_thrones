@@ -8,3 +8,5 @@ mongoose.connect(database, { useNewUrlParser: true })
     .catch(e => {
         console.log(`Could not connect to database ${database}`);
     })
+
+module.exports = mongoose

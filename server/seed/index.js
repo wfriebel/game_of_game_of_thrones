@@ -1,5 +1,7 @@
+const mongoose = require('mongoose');
 const faker = require('faker');
-const _ = require('lodash');
+const { sample } = require('lodash')
+require('../config')
 
 const { User } = require('../models/User');
 const { League } = require('../models/League');
@@ -11,19 +13,17 @@ const actionCategories = require('../models/actionCategories');
 
 const seed = async () => {
     try {
-        await User.remove();
-        await League.remove();
-        await Character.remove();
-        await ActionType.remove();
-        await Action.remove();
-
         const league = await new League().save();
 
         for(let i = 0; i < 6; i++) {
             await new User({
-                first: faker.name.firstName(),
-                last: faker.name.lastName(),
-                email: faker.internet.email().replace(/\_/g, '.'),
+                method: 'google',
+                google: {
+                    first: faker.name.firstName(),
+                    last: faker.name.lastName(),
+                    email: faker.internet.email().replace(/\_/g, '.'),
+                    imageURL: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&h=350'
+                },
                 league: league.id
             }).save();
         }
@@ -34,7 +34,7 @@ const seed = async () => {
             await new Character({
                 name: faker.name.findName(),
                 description: faker.lorem.paragraph(),
-                imageURL: faker.image.people()
+                imageURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwNWn1BMrObhD8KA7V5_W7PjfhhoH94gZrGurokYU6QwiAqkE6'
             }).save();
         }
 
@@ -51,22 +51,22 @@ const seed = async () => {
         for(let i = 0; i < 20; i++) {
             await new ActionType({
                 description: faker.company.bs(),
-                category: _.sample(actionCategories)
+                category: sample(actionCategories)
             }).save();
         }
 
         const actionTypes = await ActionType.find();
 
         for(let i = 0; i < 50; i++) {
-            const character = _.sample(characters);
+            const character = sample(characters);
             const characterOwner = await CharacterOwner.findOne({ league: league.id, character: character.id });
             const user = characterOwner.owner;
             await new Action({
                 character: character._id,
                 user: user._id,
-                actionType: _.sample(actionTypes),
+                actionType: sample(actionTypes),
                 league: league._id,
-                week: _.sample([1, 2])
+                week: sample([1, 2])
             }).save();
         }
         
@@ -75,4 +75,18 @@ const seed = async () => {
     }
 }
 
-module.exports = seed;
+
+const database = process.env.MONGODB_URI
+mongoose.connect(database, { useNewUrlParser: true })
+    .then(async () => {
+        console.log(`Seeding ${database}`)
+        return await seed()
+    })
+    .then(() => {
+        console.log(`Seeding complete`)
+        mongoose.disconnect()
+    })
+    .catch(e => {
+        console.log(`An error occured when trying to seed ${database}:`, e)
+        mongoose.disconnect()
+    })

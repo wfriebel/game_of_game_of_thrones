@@ -21,6 +21,7 @@ export const fetchCharacters = () => async dispatch => {
         const characters = await getCharacters()
         dispatch(fetchCharactersSuccess(characters))
     } catch (error) {
+        console.log('Error fetching characters:', error)
         dispatch(fetchCharactersError(error))
     }
 }

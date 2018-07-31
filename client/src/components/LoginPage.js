@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { googleLogin } from '../actions/authActions'
 
 export class LoginPage extends Component {
-    googleResponse = async (googleInfo) => {
-        await this.props.googleLogin(googleInfo.accessToken)
+    googleResponse = (googleInfo) => {
+        this.props.googleLogin(googleInfo.accessToken)
     };
 
     onFailure = (error) => {
