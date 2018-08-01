@@ -51,7 +51,8 @@ const seed = async () => {
         for(let i = 0; i < 20; i++) {
             await new ActionType({
                 description: faker.company.bs(),
-                category: sample(actionCategories)
+                category: sample(actionCategories),
+                points: sample([1, 2, 3, 4, 5, 6])
             }).save();
         }
 

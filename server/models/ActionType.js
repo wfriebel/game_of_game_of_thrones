@@ -10,7 +10,8 @@ const actionTypeSchema = new Schema({
     category: {
         type: String,
         enum: actionCategories
-    }
+    },
+    points: Number
 })
 
 const ActionType = mongoose.model('ActionType', actionTypeSchema);

@@ -28,9 +28,6 @@ export class Header extends Component{
                         <NavLink to='/stats'>Stats</NavLink>
                     </li>
                     <li>
-                        <NavLink to='/update'>Update</NavLink>
-                    </li>
-                    <li>
                         <button onClick={this.onLogOut}>Logout</button>
                     </li>
                 </ul>

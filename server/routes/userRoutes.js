@@ -24,4 +24,8 @@ module.exports = (app) => {
                 res.status(400).send({ error: e });
             });
     });
+
+    app.get('/users/me', (req, res) => {
+        res.send(req.user)
+    })
 };

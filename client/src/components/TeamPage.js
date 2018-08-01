@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const TeamPage = () => (
-    <div>
-        <h1>Teams</h1>
-    </div>
-)
+export class TeamPage extends Component {
+    render() {
+        return (
+           <div>
+                <h1>Team Page</h1>
+           </div>
+        )
+    }
+}
 
-export default TeamPage
+export default connect()(TeamPage)

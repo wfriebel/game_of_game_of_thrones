@@ -12,11 +12,6 @@ const actionSchema = new Schema({
         ref: 'Character',
         required: true
     },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
     actionType: {
         type: Schema.Types.ObjectId,
         ref: 'ActionType',
@@ -44,7 +39,6 @@ actionSchema.pre('save', function() {
 
 actionSchema.pre('find', function() {
     this.populate('character');
-    this.populate('user');
     this.populate('actionType');
     this.populate('league');
 });

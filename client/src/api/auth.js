@@ -1,10 +1,11 @@
-import api from '.'
+import api, { authRoutes } from '.'
+
 import store from '../store'
 
-export const getCharacters = async () => {
+export const getUser = async () => {
     const response = await api({
       method: 'get',
-      url: '/characters',
+      url: '/users/me',
       headers: {
           authorization: store.getState().auth.token
       }

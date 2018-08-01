@@ -1,10 +1,10 @@
 import api from '.'
 import store from '../store'
 
-export const getCharacters = async () => {
+export const getActions = async (leagueId) => {
     const response = await api({
       method: 'get',
-      url: '/characters',
+      url: `/leagues/${leagueId}/actions`,
       headers: {
           authorization: store.getState().auth.token
       }
