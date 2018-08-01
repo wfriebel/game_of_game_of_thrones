@@ -43,7 +43,6 @@ module.exports = {
 
     google: (req, res, next) => {
         if (req.token && req.user) {
-            console.log('req.user:', req.user)
             const user = {
                 _id: req.user._id,
                 first: req.user.google.first,
@@ -53,7 +52,6 @@ module.exports = {
                 league: req.user.league,
                 createdAt: req.user.createdAt
             }
-            console.log('user sent by api:', user)
             res.send({ user, token: req.token})
         }
     }

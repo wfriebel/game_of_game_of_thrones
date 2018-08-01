@@ -17,8 +17,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/auth', authRoutes);
-// app.use('/api', passport.authenticate('jwt', { session: false }), apiRoutes);  UNCOMMENT THIS LATER
-app.use('/api', apiRoutes);
+app.use('/api', passport.authenticate('jwt', { session: false }), apiRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/build')));

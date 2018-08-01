@@ -1,6 +1,6 @@
 import { LOGIN, LOGOUT, SET_USER } from './actionTypes';
-import { authRoutes } from '../api'
-import { getUser } from '../api/auth'
+import { signInWithGoogle } from '../api/auth'
+import { getCurrentUser } from '../api/auth'
 
 const loginAction = (user, token) => (
     {
@@ -19,9 +19,9 @@ const setUser = (user) => ({
 })
 
 export const googleLogin = (accessToken) => async dispatch => {
-    const serverResponse = await authRoutes.post('/google', { access_token: accessToken });    
-    const user = serverResponse.data.user;
-    const token = serverResponse.data.token;
+    const response = await signInWithGoogle(accessToken)
+    const user = response.user
+    const token = response.token
     localStorage.setItem('token', token);
     dispatch(loginAction(user, token));
 }
@@ -32,9 +32,9 @@ export const logout = () => dispatch => {
     dispatch(logoutAction());
 }
 
-export const fetchUser = () => async dispatch => {
+export const fetchCurrentUser = () => async dispatch => {
     try {
-        const user = await getUser();
+        const user = await getCurrentUser();
         dispatch(setUser(user))
     } catch (error) {
         console.log('An error occured while attempting to fetch the user:', error)

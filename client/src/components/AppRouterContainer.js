@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUser } from '../actions/authActions'
+import { fetchCurrentUser } from '../actions/authActions'
 import AppRouter from '../routers/AppRouter'
 
 export class AppRouterContainer extends Component {
     componentDidMount() {
         if(!this.props.user && !!this.props.token) {
-            this.props.fetchUser()
+            this.props.fetchCurrentUser()
         }
     }
 
@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    fetchUser: () => dispatch(fetchUser())
+    fetchCurrentUser: () => dispatch(fetchCurrentUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppRouterContainer)

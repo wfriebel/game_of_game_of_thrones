@@ -1,22 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import TeamStatsList from './TeamStatsList'
-import { fetchActions } from '../actions/characterActionsActions'
+import { fetchActions } from '../actions/actionsActions'
 
 export class StatsPage extends Component {
     componentDidMount() {
-        fetchActions(this.props.leagueId)
+        fetchActions(this.props.user.leagueId)
     }
 
     render() {
         return (
-            <TeamStatsList />
+            <div>
+                <h1>Stats</h1>
+            </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    leagueId: state.auth.user.league._id
+    user: state.auth.user,
+    actions: state.actions.items
 })
 
 const mapDispatchToProps = dispatch => ({

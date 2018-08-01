@@ -19,7 +19,6 @@ export const fetchActions = (leagueId) => async dispatch => {
     try {
         dispatch(fetchActionsStart())
         const actions = await getActions(leagueId)
-        console.log(actions)
         dispatch(fetchActionsSuccess(actions))
     } catch (error) {
         console.log('Error fetching actions:', error)

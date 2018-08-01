@@ -1,12 +1,12 @@
 import { FETCH_ACTIONS_START, FETCH_ACTIONS_SUCCESS, FETCH_ACTIONS_ERROR } from './actionTypes'
 
-const characterActionsReducerDefaultState = {
+const actionsReducerDefaultState = {
     items: [],
     loading: false,
     error: null
 }
 
-const characterActionsReducer = (state = characterActionsReducerDefaultState, action) => {
+const actionsReducer = (state = actionsReducerDefaultState, action) => {
     switch (action.type) {
         case FETCH_ACTIONS_START:
             return {
@@ -29,3 +29,5 @@ const characterActionsReducer = (state = characterActionsReducerDefaultState, ac
             return state;
     }
 }
+
+export default actionsReducer
