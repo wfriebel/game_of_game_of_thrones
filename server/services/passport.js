@@ -101,30 +101,4 @@ passport.use(new LocalStrategy(
     }
 ))
 
-// passport.use(new GoogleStrategy(
-//     {
-//         clientID: process.env.GOOGLE_CLIENT_ID,
-//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//         callbackURL: '/auth/google/callback',
-//         proxy: true
-//     }, 
-//     async (accessToken, refreshToken, profile, done) => {
-//         try {
-//             const existingUser = await User.findOne({ googleId: profile.id });
-//             if(existingUser) {
-//                 return done(null, existingUser);
-//             }
-//             const newUser = await new User({ 
-//                 googleId: profile.id ,
-//                 first: profile.name.givenName,
-//                 last: profile.name.familyName,
-//                 imageURL: profile.photos[0].value
-//             }).save();
-//             done(null, newUser);
-//         } catch (e) {
-//             done(e);
-//         }
-//     })
-// );
-
 module.exports = passport;

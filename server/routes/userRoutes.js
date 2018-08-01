@@ -1,31 +1,7 @@
-const { User } = require('../models/User');
+const userRoutes = require('express').Router()
 
-module.exports = (app) => {
-    app.get('/leagues/:leagueId/users', (req, res) => {
-        User.find({ league: req.params.leagueId })
-            .then(users => {
-                users
-                    ? res.send(users)
-                    : res.status(404).send();
-            })
-            .catch(e => {
-                res.status(400).send({ error: e });
-            });
-    });
+userRoutes.get('/me', (req, res) => {
+    res.send({user: req.user })
+})
 
-    app.get('/leagues/:leagueId/users/:userId', (req, res) => {
-        User.findById(req.params.userId)
-            .then(user => {
-                user
-                    ? res.send(user)
-                    : res.status(404).send();
-            })
-            .catch(e => {
-                res.status(400).send({ error: e });
-            });
-    });
-
-    app.get('/users/me', (req, res) => {
-        res.send(req.user)
-    })
-};
+module.exports = userRoutes

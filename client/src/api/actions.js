@@ -9,5 +9,5 @@ export const getActions = async (leagueId) => {
           authorization: store.getState().auth.token
       }
     })
-    return response.data
+    return response.data.actions
   }

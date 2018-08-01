@@ -10,5 +10,5 @@ export const getUser = async () => {
           authorization: store.getState().auth.token
       }
     })
-    return response.data
+    return response.data.user
   }

@@ -3,14 +3,12 @@ const characterRoutes = require('./characterRoutes');
 const actionRoutes = require('./actionRoutes');
 const actionTypeRoutes = require('./actionTypeRoutes');
 const userRoutes = require('./userRoutes');
-const { authenticate } = require('../middlewares');
+const leagueRoutes = require('./leagueRoutes')
 
-
-apiRoutes.use(authenticate);
-
-userRoutes(apiRoutes);
-characterRoutes(apiRoutes);
-actionTypeRoutes(apiRoutes);
-actionRoutes(apiRoutes);
+apiRoutes.use('/users', userRoutes)
+apiRoutes.use('/characters', characterRoutes)
+apiRoutes.use('/leagues', leagueRoutes)
+apiRoutes.use('/actions', actionRoutes)
+apiRoutes.use('/action-types', actionTypeRoutes)
 
 module.exports = apiRoutes;
