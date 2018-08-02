@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { emailValidator } = require('../schemaValidators');
 const { Schema } = mongoose;
-require('./League');
 
 const userSchema = new Schema({
     method: {
@@ -83,9 +82,33 @@ userSchema.pre('save', async function () {
     }
 });
 
-userSchema.pre('find', function() {
-    this.populate('league');    
-});
+userSchema.methods.toJSON = function() {
+    const userObject = this.toObject()
+    switch (userObject.method) {
+        case 'google':
+            return {
+                _id: userObject._id,
+                first: userObject.google.first,
+                last: userObject.google.last,
+                email: userObject.google.email,
+                imageURL: userObject.google.imageURL,
+                league: userObject.league,
+                createdAt: userObject.createdAt
+            }
+        case 'local':
+        return {
+            _id: userObject._id,
+            first: userObject.local.first,
+            last: userObject.local.last,
+            email: userObject.local.email,
+            imageURL: userObject.local.imageURL,
+            league: userObject.league,
+            createdAt: userObject.createdAt
+        }
+        default:
+            return userObject
+    }
+}
 
 userSchema.methods.isValidPassword = async function (password) {
     return await bcrypt.compare(password, this.local.password);

@@ -2,9 +2,11 @@ const leagueRoutes = require('express').Router();
 const { CharacterOwner } = require('../models/CharacterOwner');
 const { User } = require('../models/User')
 const { Action } = require('../models/Action');
+const { Character } = require('../models/Character')
 
 leagueRoutes.get('/:leagueId/actions', (req, res) => {
     Action.find({ league: req.params.leagueId })
+        .populate('character actionType')
         .then(actions => {
             actions.length > 0
                 ? res.send({ actions })
@@ -14,6 +16,35 @@ leagueRoutes.get('/:leagueId/actions', (req, res) => {
             res.status(400).send({ error: e });
         });
 });
+
+leagueRoutes.get('/:leagueId/characters/stats', async (req, res) => {
+    try {
+        const characters = await Character.find()
+                                    .populate({
+                                        path: 'actions',
+                                        match: { 
+                                            league: req.params.leagueId,
+                                        },
+                                        populate: {
+                                            path: 'actionType'
+                                        }
+                                    })
+
+        const populatedCharacters = characters.map(character => {
+            return {
+                _id: character._id,
+                name: character.name,
+                description: character.description,
+                imageURL: character.imageURL,
+                actions: character.actions
+            }
+        })
+        res.send({ characters: populatedCharacters })
+    } catch (e) {
+        res.status(400).send({ error: e });
+    }
+
+})
 
 leagueRoutes.get('/:leagueId/characters/:characterId/actions', (req, res) => {
     Action.find({
@@ -60,9 +91,10 @@ leagueRoutes.get('/:leagueId/users/:userId/characters', (req, res) => {
         league: req.params.leagueId
     })
     .then(characterOwners => {
-         characterOwners.length > 0
-             ? res.send({ characterowners: characterOwners.map(item => item.character) })
-             : res.status(404).send();
+        res.send({ 
+            user: characterOwners[0].owner,
+            characters: characterOwners.map(item => item.character) 
+        })
     })
     .catch(e => {
         res.status(400).send({ error: e });

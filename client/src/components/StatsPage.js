@@ -4,13 +4,14 @@ import { fetchActions } from '../actions/actionsActions'
 
 export class StatsPage extends Component {
     componentDidMount() {
-        fetchActions(this.props.user.leagueId)
+        this.props.user && this.props.fetchActions(this.props.user.league)
     }
 
     render() {
         return (
             <div>
                 <h1>Stats</h1>
+                {console.log(this.props.actions)}
             </div>
         )
     }

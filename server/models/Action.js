@@ -38,9 +38,9 @@ actionSchema.pre('save', function() {
 });
 
 actionSchema.pre('find', function() {
-    this.populate('character');
-    this.populate('actionType');
-    this.populate('league');
+    // this.populate('character');
+    // this.populate('actionType');
+    // this.populate('league');
 });
 
 const Action = mongoose.model('Action', actionSchema);

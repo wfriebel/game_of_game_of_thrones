@@ -1,4 +1,4 @@
-import { FETCH_ACTIONS_START, FETCH_ACTIONS_SUCCESS, FETCH_ACTIONS_ERROR } from './actionTypes'
+import { FETCH_ACTIONS_START, FETCH_ACTIONS_SUCCESS, FETCH_ACTIONS_ERROR } from '../actions/actionTypes'
 
 const actionsReducerDefaultState = {
     items: [],

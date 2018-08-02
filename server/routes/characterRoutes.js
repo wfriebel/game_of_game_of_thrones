@@ -4,6 +4,7 @@ const characterRoutes = require('express').Router()
 
 characterRoutes.get('/', (req, res) => {
     Character.find()
+        .populate('actions')
         .then(characters => {
             res.send({ characters })
         })
@@ -14,6 +15,7 @@ characterRoutes.get('/', (req, res) => {
 
 characterRoutes.get('/:characterId', (req, res) => {
     Character.findById(req.params.characterId)
+        .populate('actions')
         .then(character => {
             character
                 ? res.send({ character })
